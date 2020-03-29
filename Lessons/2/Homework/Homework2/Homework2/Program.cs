@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 
 namespace Homework2
 {
@@ -9,7 +7,6 @@ namespace Homework2
     {
         static void Main(string[] args)
         {
-            // announcemented variables
             Double operand1;
             Double operand2;
             Char oper;
@@ -31,38 +28,47 @@ namespace Homework2
             {
                 result = operand1 / operand2;
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
 
             }
             else if (oper == '%')
             {
                 result = operand1 % operand2;
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
             }
             else if (oper == '*')
             {
                 result = operand1 * operand2;
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
+
             }
             else if (oper == '+')
             {
                 result = operand1 + operand2;
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
             }
             else if (oper == '-')
             {
                 result = operand1 - operand2;
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
             }
             else if (oper == '^')
             {
-                result = Math.Pow (operand1 , operand2);
+                result = Math.Pow(operand1, operand2);
                 Console.WriteLine("Result is " + result);
+                Console.ReadLine();
             }
             // exception handling
             else
             {
                 Console.WriteLine("Sorry, unknow operator. Please, try again");
             }
+         
         }
+        
     }
 }

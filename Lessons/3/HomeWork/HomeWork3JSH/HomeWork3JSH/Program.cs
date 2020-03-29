@@ -1,4 +1,4 @@
-﻿using Microsoft.VisualBasic;
+﻿
 using System;
 
 namespace HomeWork3JSH
@@ -9,9 +9,9 @@ namespace HomeWork3JSH
         {
             {
                 //declaring an array requesting names
-
+                int a = 3;
                 Console.WriteLine("Please, enter Your name:");
-                string[] usersname = new string[3];
+                string[] usersname = new string[a];
                 
                     for (var i = 0; i < 3; i++)
                     {
@@ -20,17 +20,18 @@ namespace HomeWork3JSH
                 //declaring an array requesting age
 
                 Console.WriteLine("Please, enter Your age:");
-                int[] usersage = new int[3];
+                int[] usersage = new int[a];
                
-                for ( int h = 0; h < 3; h++)
+                for ( int i = 0; i < 3; i++)
                 {
-                        usersage[h] = Convert.ToInt32(Console.ReadLine()); 
+                        usersage[i] = Convert.ToInt32(Console.ReadLine()); 
                 }
+
                 //output array values, users age after 4 years
                 int b = 4;
-                for (var a = 0; a < 3; a++)
+                for (var i = 0; i < 3; i++)
                 {
-                    Console.WriteLine("Name:" + usersname[a] + ", age in 4 years: " + Convert.ToInt32(usersage[a] + b));
+                    Console.WriteLine("Name:" + usersname[i] + ", age in 4 years: " + (usersage[i] + b));
                 }
 
             }
