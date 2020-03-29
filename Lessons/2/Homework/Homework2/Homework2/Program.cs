@@ -7,23 +7,18 @@ namespace Homework2
     {
         static void Main(string[] args)
         {
-            Double operand1;
-            Double operand2;
-            Char oper;
-            Double result;
-
             // user input request
             Console.WriteLine("Enter the first operand:");
-            operand1 = Convert.ToDouble(Console.ReadLine());
+            var operand1 = Convert.ToDouble(Console.ReadLine());
 
             Console.WriteLine("Enter the operator:");
-            oper = Convert.ToChar(Console.ReadLine());
+            var oper = Convert.ToChar(Console.ReadLine());
 
             Console.WriteLine("Enter the second operand:");
-            operand2 = Convert.ToDouble(Console.ReadLine());
+            var operand2 = Convert.ToDouble(Console.ReadLine());
 
             // processing the result, depending on the selected operator
-
+            double result;
             if (oper == '/')
             {
                 result = operand1 / operand2;
