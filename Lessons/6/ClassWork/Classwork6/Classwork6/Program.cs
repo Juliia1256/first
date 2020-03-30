@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Classwork6
 {
@@ -6,11 +7,19 @@ namespace Classwork6
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the string: ");
+           Console.WriteLine("Enter the string: ");
+           var answer = Console.ReadLine();
             do
             {
-                Console.ReadLine();
-                continue;
+                if (answer.Length < 15)
+                {
+                    Console.WriteLine($"Entered string length is {answer.Length}");
+                    break;
+                }
+                if (answer.Length > 15)
+                {
+                    Console.WriteLine($"Too long string. Try another: {answer.Length}");
+                }
             }
             while (Console.ReadLine() != "exit");
 
