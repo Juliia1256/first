@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace HomeWork4
 {
@@ -20,45 +21,41 @@ namespace HomeWork4
         {
             Console.WriteLine("Какой объем сока (в литрах) требуется упаковать?");
             var desiredvolume = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Вам потребуются следующие контейнеры:");
-
             int fulltwenty = (int)desiredvolume / (int)Containers.conttwenty;
-            var flagfulltwenty = fulltwenty | (byte)ContType.typetwenty; //add flag
-            flagfulltwenty = flagfulltwenty & (byte)ContType.typetwenty; //check with container
             double balancetwenty = (double)desiredvolume % (double)Containers.conttwenty; //remainder of division for calculation
-            
             int fullfive = (int)balancetwenty / (int)Containers.contfive;
-            var flagfullfive = fullfive | (byte)ContType.typefive; //add flag
-            flagfullfive = flagfullfive & (byte)ContType.typefive; //check with container
             double balancefive = (double)balancetwenty % (double)Containers.contfive; //remainder of division for calculation
-
             double fullone = Math.Ceiling((double)balancefive / (double)Containers.contone); //rounding operation
-            var flagfullone = (int)fullone | (byte)ContType.typeone; //add flag
-            flagfullone = flagfullone & (byte)ContType.typeone; //check with container
 
 
-            if (flagfulltwenty == (byte)ContType.typetwenty) //check availability
+            var flags = 0b00000000;
+            if (fulltwenty > 0) 
+            {
+                flags = flags |(byte)ContType.typetwenty; //add flag 20
+                
+            }
+            if (fullfive > 0)
+            {
+                flags = flags | (byte)ContType.typefive; //add flag 5
+            }
+            if (fullone > 0)  
+            {
+                flags = flags | (byte)ContType.typeone; //add flag 1
+            }
+
+            Console.WriteLine("Вам потребуются следующие контейнеры:");
+            if ((flags & (byte)ContType.typetwenty) == (byte)ContType.typetwenty) //check availability 20
             {
                 Console.WriteLine($" 20 л: {fulltwenty} шт.");
             }
-            else if (flagfulltwenty != (byte)ContType.typetwenty)
+            if ((flags & (byte)ContType.typefive) == (byte)ContType.typefive) //check availability 5
             {
+                Console.WriteLine($" 5 л: {fullfive} шт.");
             }
-            if (flagfullfive == (byte)ContType.typefive) //check availability
+            if ((flags & (byte)ContType.typeone) == (byte)ContType.typeone) //check availability 5
             {
-                    Console.WriteLine($" 5 л: {fullfive} шт.");
+                Console.WriteLine($" 1 л: {fullone} шт.");
             }
-            else if (flagfullfive != (byte)ContType.typefive)
-            {
-            }
-            if (flagfullone == (byte)ContType.typeone) //check availability
-            {
-            Console.WriteLine($" 1 л: {fullone} шт.");
-            }
-            else
-            {
-            }
-            Console.ReadLine();   
         }
     }
 }
