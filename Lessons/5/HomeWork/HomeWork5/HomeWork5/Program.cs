@@ -11,14 +11,16 @@ namespace HomeWork5
             Rectangle = 3
         }
         // method for handling user input
-        static int ReadInt()
+        static int ReadEnum()
         {
             for (; ; )
             {
                 try
                 {
                     Console.WriteLine();
-                    return int.Parse(Console.ReadLine());
+                    return (int)Enum.Parse(typeof (Figures) , Console.ReadLine());
+                    //return (Figures)Enum.Parse(typeof(Figures), Console.ReadLine());
+
                 }
                 catch (FormatException exception)
                 {
@@ -26,7 +28,7 @@ namespace HomeWork5
                 }
             }
         }
-        static double ReadDouble()
+        static double CheckDouble()
         {
             for (; ; )
             {
@@ -44,31 +46,31 @@ namespace HomeWork5
         static void Main(string[] args)
         {
             Console.Write("Выберите фигуру из списка: 1 - Круг, 2 - Равносторонний треугольник, 3 - Прямоугольник: ");
-            var answer = Enum.Parse(typeof(Figures), Convert.ToString(ReadInt()));
-            switch (answer)
+            var figure = ReadEnum();
+            switch (figure)
             {
-                case Figures.Circle:
+                case (int)Figures.Circle:
                     Console.Write("Введите диаметр круга: ");
-                    var diametrC = ReadDouble();
+                    var diametrC = CheckDouble();
                     Console.WriteLine($"Площадь круга равна {(Math.PI * Math.Pow(diametrC, 2)) / 4}");
                     Console.WriteLine($"Периметр круга равен {diametrC * Math.PI}");
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadLine();
                     break;
-                case Figures.Triangle:
+                case (int)Figures.Triangle:
                     Console.Write("Введите длину основания треугольника: ");
-                    var osnovT = ReadDouble();
+                    var osnovT = CheckDouble();
                     var hightT = 0.5 * Math.Sqrt(4 * Math.Pow(osnovT, 2) - Math.Pow(osnovT, 2));
                     Console.WriteLine($"Площадь треугольника равна {(osnovT * hightT) / 2}");
                     Console.WriteLine($"Пеример треугольника равен {osnovT + (2 * osnovT)}");
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadLine();
                     break;
-                case Figures.Rectangle:
+                case (int)Figures.Rectangle:
                     Console.Write("Введите длину прямоугольника: ");
-                    var lengthR = ReadDouble();
+                    var lengthR = CheckDouble();
                     Console.Write("Введите ширину прямоугольника: ");
-                    var widthR = ReadInt();
+                    var widthR = CheckDouble();
                     Console.WriteLine($"Площадь прямоугольника равна {lengthR * widthR}");
                     Console.WriteLine($"Пеример прямоугольника равен {2 * lengthR + 2 * widthR}");
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
