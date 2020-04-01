@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection.Metadata.Ecma335;
+
 
 namespace HomeWork4
 {
@@ -52,7 +52,7 @@ namespace HomeWork4
             {
                 Console.WriteLine($" 5 л: {fullfive} шт.");
             }
-            if ((flags & (byte)ContType.typeone) == (byte)ContType.typeone) //check availability 5
+            if ((flags & (byte)ContType.typeone) == (byte)ContType.typeone) //check availability 1
             {
                 Console.WriteLine($" 1 л: {fullone} шт.");
             }
