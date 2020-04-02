@@ -11,15 +11,14 @@ namespace HomeWork5
             Rectangle = 3
         }
         // method for handling user input
-        static int ReadEnum()
+        static object ReadFigures()
         {
             for (; ; )
             {
                 try
                 {
                     Console.WriteLine();
-                    return (int)Enum.Parse(typeof (Figures) , Console.ReadLine());
-                    //return (Figures)Enum.Parse(typeof(Figures), Console.ReadLine());
+                    return (Figures)Enum.Parse(typeof(Figures), Console.ReadLine());
 
                 }
                 catch (FormatException exception)
@@ -46,10 +45,10 @@ namespace HomeWork5
         static void Main(string[] args)
         {
             Console.Write("Выберите фигуру из списка: 1 - Круг, 2 - Равносторонний треугольник, 3 - Прямоугольник: ");
-            var figure = ReadEnum();
+            var figure = ReadFigures();
             switch (figure)
             {
-                case (int)Figures.Circle:
+                case Figures.Circle:
                     Console.Write("Введите диаметр круга: ");
                     var diametrC = CheckDouble();
                     Console.WriteLine($"Площадь круга равна {(Math.PI * Math.Pow(diametrC, 2)) / 4}");
@@ -57,7 +56,7 @@ namespace HomeWork5
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadLine();
                     break;
-                case (int)Figures.Triangle:
+                case Figures.Triangle:
                     Console.Write("Введите длину основания треугольника: ");
                     var osnovT = CheckDouble();
                     var hightT = 0.5 * Math.Sqrt(4 * Math.Pow(osnovT, 2) - Math.Pow(osnovT, 2));
@@ -66,7 +65,7 @@ namespace HomeWork5
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadLine();
                     break;
-                case (int)Figures.Rectangle:
+                case Figures.Rectangle:
                     Console.Write("Введите длину прямоугольника: ");
                     var lengthR = CheckDouble();
                     Console.Write("Введите ширину прямоугольника: ");
