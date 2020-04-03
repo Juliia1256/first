@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace HW6_1
 {
@@ -17,7 +19,7 @@ namespace HW6_1
                     if (upperLimit >check && check > 0)
                     {
                         Console.Write($"Введено число {check}. ");
-               
+              
                         return check;
                         
                     }
@@ -34,18 +36,15 @@ namespace HW6_1
         }
         static int Counter(string answer)
         {
-            int evenElements = 0;
-            for (int i=1; i<answer.Length; i++)
+            Array.ConvertAll(answer.Split(), int.Parse);
+            var evenElements = 0;
+            foreach (int count in answer)
             {
-                string b = answer.Substring(i, 1);
-                int condition = int.Parse(b) % 2;
-                if (condition == 0)
-                {
+                if (count % 2 == 0)
                     evenElements = evenElements + 1;
-                }
             }
-            Console.WriteLine($@"Количество символов в полученном числе {answer.Length}.
-            Количество четных элементов {evenElements}.");
+            Console.WriteLine($@"Количество символов в полученном числе: {answer.Length}.
+Количество четных элементов: {evenElements}.");
             return evenElements;
         }
         static void Main(string[] args)
