@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
+
 
 namespace HW6_1
 {
