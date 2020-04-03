@@ -6,36 +6,34 @@ namespace HW6_2
     {
         static double CheckDouble()
         {
-            for (; ;)
-            {                
+
+            while (true)
+            {
                 try
                 {
                     var check = double.Parse(Console.ReadLine());
                     Console.WriteLine();
-                    
+
                     if (check > 0)
                     {
                         return check;
                     }
                     else
                     {
-                        Console.WriteLine("Введенные параметры не пригодны для расчета");
+                        Console.Write("Сумма дожна быть положительным числом");
                     }
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("Введены не корректные параметры, попробуйте снова");
+                    Console.Write("Введены не корректные параметры, попробуйте снова");
                 }
                 catch (System.OverflowException)
                 {
-                    Console.WriteLine($"Введено число слишком большое число: {double.MaxValue}");
-                }
-                catch
-                {
-                    Console.WriteLine("Упс! Что-то пошло не так...");
+                    Console.Write("Введено слишком большое число");
                 }
             }
         }
+         
         static void Main(string[] args)
         {
             Console.Write("Введите сумму первоначального взноса: ");
@@ -44,10 +42,11 @@ namespace HW6_2
             var profit = CheckDouble();
             Console.Write("Введите желаемую сумму накопления в рублях: ");
             var accumulation = CheckDouble();
+           
             double calculation = hensel * profit;
-            int i = 0;
+            int count = 0;
             double sum = 0;
-            for ( i=0; ; i++)
+            for ( count=0; ; count++)
             {
                 sum += calculation;
                 if (sum>(accumulation-hensel))
@@ -55,11 +54,8 @@ namespace HW6_2
                     break;
                 }   
             }
-
-            Console.WriteLine($"Первоначальный взнос {hensel} руб.");
-            Console.WriteLine($"Желаемая сумма накопления {accumulation} руб.");
-            Console.WriteLine($"Ежедневное пополнение в {profit*100}% составит {Math.Round(calculation)} руб.");
-            Console.WriteLine($"Количество дней для достижения желаемой суммы {i+1}, сумма накоплений на {i+1} день составит {Math.Round(sum + hensel)}");
+            Console.WriteLine($"Ежедневное пополнение в {(profit*100):0.##}% составит {calculation:0.##} руб.");
+            Console.WriteLine($"Количество дней для достижения желаемой суммы {count+1}, сумма накоплений на {count+1} день составит {(sum + hensel):#.##} руб.");
 
         }    
     }
