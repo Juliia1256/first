@@ -8,21 +8,21 @@ namespace HW7_1
         {
             Console.WriteLine($"Введите предложение минимум из 2х слов: ");
             string [] treatment = null;
-            do
-            {
 
+            while(true)
+            {
                 var forCheck = Console.ReadLine();
                 treatment = forCheck.Split(' '); //break the string into an array of words
                 if (treatment.Length < 2)
                 {
-                    Console.WriteLine($"Введено меньше двух слов, повторите попытку:");
+                    Console.WriteLine($"Введено меньше двух слов, повторите попытку:");  
                 }
-        
+                else
+                {
+                    return treatment;
+                }
+                
             }
-            while (treatment.Length < 2);
-
-            return treatment;
-            
         }
 
         static string СalculationString()
@@ -36,9 +36,8 @@ namespace HW7_1
                     count += 1;
                 }
             }
-            string positivanswer = $"Количество слов, на чинающихся с буквы 'А' равно {count}";
-            string negativeanswer = $"В введенном предложении нет слов, начинающихся с буквы 'А'.";
-            var msg = (count > 0) ? positivanswer : negativeanswer;                 //choose the answer depending on the result of the count
+            var msg = (count > 0) ? $"Количество слов, на чинающихся с буквы 'А' равно {count}" 
+                                  : $"В введенном предложении нет слов, начинающихся с буквы 'А'."; //choose the answer depending on the result of the count
             Console.WriteLine(msg);
             return msg;
         }
