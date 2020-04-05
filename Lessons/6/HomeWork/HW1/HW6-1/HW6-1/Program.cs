@@ -19,37 +19,44 @@ namespace HW6_1
                     {
                         Console.Write($"Введено число {check}. ");
               
-                        return check;
-                        
+                        return check;                       
                     }
                 }
                 catch (FormatException)
                 {
                     Console.Write("Введены не корректные параметры, попробуйте снова");
                 }
-                catch (System.OverflowException)
+                catch (OverflowException)
                 {
                     Console.Write("Введено число большего значения, чем указано в инструкции");
                 }
             }
         }
-        static int Counter(string answer)
+        static int Counter()
         {
-            Array.ConvertAll(answer.Split(), int.Parse);
+            var checkCounter = CheckIntFormat();
             var evenElements = 0;
-            foreach (int count in answer)
+            var iteration = checkCounter;
+            var balanceiteration = checkCounter;
+            var i= 0;
+            for ( ; iteration > 0; i++)
             {
-                if (count % 2 == 0)
-                    evenElements = evenElements + 1;
+                iteration = iteration / 10;
+                balanceiteration = iteration % 10;
+
+                if (balanceiteration % 2 == 0 )
+                {
+                    evenElements += 1;
+                }                 
+
             }
-            Console.WriteLine($@"Количество символов в полученном числе: {answer.Length}.
+            Console.WriteLine($@"Количество символов в полученном числе: {i}.
 Количество четных элементов: {evenElements}.");
             return evenElements;
         }
         static void Main(string[] args)
         {
-            var answer = CheckIntFormat();
-            answer = Counter(Convert.ToString(answer));
+            Counter();
             
         }  
     }
