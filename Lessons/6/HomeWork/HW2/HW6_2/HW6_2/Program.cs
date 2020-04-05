@@ -18,10 +18,7 @@ namespace HW6_2
                     {
                         return check;
                     }
-                    else
-                    {
-                        Console.Write("Сумма дожна быть положительным числом");
-                    }
+                    Console.WriteLine("Сумма должна быть положительным числом");                    
                 }
                 catch (FormatException)
                 {
