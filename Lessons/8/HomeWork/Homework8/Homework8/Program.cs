@@ -3,112 +3,89 @@ using System.Collections.Generic;
 
 namespace Homework8
 {
-    //[Flags]
-    //enum TypeOfBreckets : byte
-    //{
-    //    openround = 0b00000001,
-    //    opensqueare = 0b00000010,
-    //    closeround = 0b00000100,
-    //    closesqueare = 0b00001000
-    //}
+
     class Program
     {
 
-        static List<char> GetBreckets()
+        static string GetBreckets()
         {
-            var listBreckets = new List<char>();
-            Console.WriteLine($"Введите набор скобок. Каждая скобка должна иметь закрывающую пару, для остановки ввода, нажмите 's'.");
-            char input;
-            while (true)
+            string checkbreckets = null;
+            Console.WriteLine($"Введите набор скобок. Каждая скобка должна иметь закрывающую пару: ");
+            do
             {
-                try
+                checkbreckets = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(checkbreckets))
                 {
-                    input = Convert.ToChar(Console.ReadLine());
-                    if (input == 's')
+                    Console.WriteLine("Попробуйте еще раз");
+                }
+            }
+            while (string.IsNullOrWhiteSpace(checkbreckets));
+            return checkbreckets;
+        }
+        static bool CalculationBreckets()
+        {
+            var calculationBreckets = GetBreckets();
+
+            Stack<char> roundbreckets = new Stack<char>();
+            Stack<char> squearebreckets = new Stack<char>();
+            if (calculationBreckets.Length % 2 != 0)
+            {
+                Console.WriteLine($"The answer is {!(calculationBreckets.Length % 2 != 0)}");
+                return false;
+            }
+
+            for (var i = 0; i < calculationBreckets.Length; i++)
+            {
+
+                if (calculationBreckets[i] == '(')
+                {
+                    roundbreckets.Push('(');
+                    continue;
+                }
+                if (calculationBreckets[i] == ')')
+                {
+                    if (roundbreckets.Count == 0)
                     {
                         break;
                     }
-                    listBreckets.Add(input);
+                    if (roundbreckets.Pop() == '(')
+                    {
+                        continue;
+                    }
+
                 }
-                catch (FormatException)
+                if (calculationBreckets[i] == '[')
                 {
-                    Console.WriteLine($"Ошибка!");
-                    throw;
+                    squearebreckets.Push('[');
+                    continue;
+                }
+                if (calculationBreckets[i] == ']')
+                {
+                    if (squearebreckets.Count == 0)
+                    {
+                        break;
+                    }
+                    if (squearebreckets.Pop() == '[')
+                    {
+                        continue;
+                    }
                 }
             }
 
-            var showString = string.Join("", listBreckets);
-            Console.WriteLine($"Введена строка: {showString}. Проверка на правильность:");
-
-            return listBreckets;
+            Console.WriteLine($"The answer is {(roundbreckets.Count == 0) && (squearebreckets.Count == 0)}");
+            return ((roundbreckets.Count == 0) && (squearebreckets.Count == 0));
         }
 
-        static bool CalculationBreckets()
+
+
+        static void Main(string[] args)
         {
-            var calcBreckets = GetBreckets();
-            //var brecketflags = 0;
-            var openround = 0;
-            var opensqueare = 0;
-            var closeround = 0;
-            var closesqueare = 0;
-            if (calcBreckets.Count % 2 != 0)
-            {
-                return false;
-            }
 
-            for (var i=0; i< calcBreckets.Count;i++)
-            {
-
-                if (calcBreckets[i] == '(')
-                {
-                    openround +=1;
-                    continue;
-                }
-                if (calcBreckets[i] == ')')
-                {
-                    closeround +=1;
-                    if (calcBreckets[i-1]== '[')
-                    {
-                        return false;
-                    }
-                    continue;
-                }
-                if (calcBreckets[i] == '[')
-                {
-                    opensqueare +=1;
-                    continue;
-                }
-                if (calcBreckets[i] == ']')
-                {
-                    closesqueare +=1;
-                    if (calcBreckets[i - 1] == '(')
-                    {
-                        return false;
-                    }
-                    continue;
-                } 
-            }
-            if (openround-closeround !=0)
-            {
-                return false;
-            }
-            if (opensqueare - closesqueare != 0)
-            {
-                return false;
-            }
-            
-                return ((openround - closeround) == (opensqueare - closesqueare));
-
+            CalculationBreckets();
         }
-
-            static void Main(string[] args)
-            {
-           Console.WriteLine(CalculationBreckets());
-            
-        }
-
-
-        
 
     }
+
 }
+
+
