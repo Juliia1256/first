@@ -26,9 +26,8 @@ namespace Homework8
         {
             var calculationBreckets = GetBreckets();
 
-            Stack<char> roundbreckets = new Stack<char>();
-            Stack<char> squearebreckets = new Stack<char>();
-            if (calculationBreckets.Length % 2 != 0)
+            Stack<char> openbreckets = new Stack<char>();
+            if (calculationBreckets.Length % 2 != 0) //first check
             {
                 Console.WriteLine($"The answer is {!(calculationBreckets.Length % 2 != 0)}");
                 return false;
@@ -37,43 +36,44 @@ namespace Homework8
             for (var i = 0; i < calculationBreckets.Length; i++)
             {
 
-                if (calculationBreckets[i] == '(')
+                if (calculationBreckets[i] == '(') //add open type to stack
                 {
-                    roundbreckets.Push('(');
-                    continue;
-                }
-                if (calculationBreckets[i] == ')')
-                {
-                    if (roundbreckets.Count == 0)
-                    {
-                        break;
-                    }
-                    if (roundbreckets.Pop() == '(')
-                    {
-                        continue;
-                    }
-
+                    openbreckets.Push('(');
                 }
                 if (calculationBreckets[i] == '[')
                 {
-                    squearebreckets.Push('[');
-                    continue;
+                    openbreckets.Push('[');
                 }
-                if (calculationBreckets[i] == ']')
+                if (calculationBreckets[i] == ')')  //second and third check, brecket type
                 {
-                    if (squearebreckets.Count == 0)
+
+                    if (openbreckets.Peek()== '[')
                     {
                         break;
                     }
-                    if (squearebreckets.Pop() == '[')
+                    else if (openbreckets.Peek()=='(')
                     {
-                        continue;
+                        openbreckets.Pop();
                     }
+
+                }
+                if (calculationBreckets[i] == ']')
+                {
+
+                    if (openbreckets.Peek()=='(')
+                    {
+                        break;
+                    }
+                    else if (openbreckets.Peek()=='[')
+                    {
+                        openbreckets.Pop();
+                    }
+
                 }
             }
 
-            Console.WriteLine($"The answer is {(roundbreckets.Count == 0) && (squearebreckets.Count == 0)}");
-            return ((roundbreckets.Count == 0) && (squearebreckets.Count == 0));
+            Console.WriteLine($"The answer is {openbreckets.Count == 0}");
+            return (openbreckets.Count == 0);  //forth check, stack balance
         }
 
 
