@@ -6,10 +6,14 @@ namespace CW12
 {
     class BaseDocument
     {
-        public string Title { get; set; }
-        public string Number { get; set; }
-        public DateTime IssueDate { get; set; }
+        public string Title;
+        public string Number;
+        public DateTime IssueDate;
 
+        public BaseDocument(string Title, string Number, DateTime IssueDate) : base(Number, IssueDate)
+        {
+
+        }
 
         public virtual string Description
         {
