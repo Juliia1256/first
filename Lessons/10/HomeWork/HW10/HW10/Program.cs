@@ -4,6 +4,44 @@ namespace HW10
 {
     class Program
     {
+        static string CheckName()
+        {
+            string checkstring = null;
+
+            do
+            {
+                checkstring = (Console.ReadLine()).ToUpperInvariant();
+                if (string.IsNullOrWhiteSpace(checkstring))
+                {
+                    Console.WriteLine("Попробуйте еще раз");
+                }
+
+            }
+            while (string.IsNullOrWhiteSpace(checkstring));
+            return checkstring.Trim();
+        }
+        static int CheckAge()
+        {
+            while (true)
+            {
+                try
+                {
+                    var checkint = int.Parse(Console.ReadLine());
+                    Console.WriteLine();
+
+                    if (checkint > 0 && checkint < 140)
+                    {
+                        return checkint;
+                    }
+                    Console.WriteLine("Возраст должен находиться в приемлемом диапазоне");
+                }
+                catch (FormatException)
+                {
+                    Console.Write("Введены не корректные параметры, попробуйте снова");
+                }
+
+            }
+        }
         static void Main(string[] args)
         {
             {
@@ -14,10 +52,10 @@ namespace HW10
                     persons[i] = new Person();
 
                     Console.Write($"Enter {i + 1} name: ");
-                    persons[i].Name = Console.ReadLine();
+                    persons[i].Name = CheckName();
 
                     Console.Write($"Enter {i + 1} age: ");
-                    persons[i].Age = int.Parse(Console.ReadLine());
+                    persons[i].Age = CheckAge();
                 }
 
                 foreach (var person in persons)
