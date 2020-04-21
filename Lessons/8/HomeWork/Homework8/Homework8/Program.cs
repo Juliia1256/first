@@ -4,8 +4,16 @@ using System.Collections.Generic;
 namespace Homework8
 {
 
+
     class Program
     {
+        Dictionary<char, char> brecketstype = new Dictionary<char, char>
+        {
+            { '(' , ')' },
+            { '[' , ']' },
+            { '{' , '}' },
+            { '<' , '>' },
+        };
 
         static string GetBreckets()
         {
@@ -24,6 +32,8 @@ namespace Homework8
         }
         static bool CalculationBreckets()
         {
+
+
             var calculationBreckets = GetBreckets();
 
             Stack<char> openbreckets = new Stack<char>();
@@ -36,22 +46,16 @@ namespace Homework8
             for (var i = 0; i < calculationBreckets.Length; i++)
             {
 
-                if (calculationBreckets[i] == '(') //add open type to stack
-                {
-                    openbreckets.Push('(');
+                //if (calculationBreckets[i] == brecketstype.ContainsKey)
+                if (calculationBreckets[i] == '(' || calculationBreckets[i] == '[') //add open type to stack
+                    {
+                    openbreckets.Push(calculationBreckets[i]);
                 }
-                if (calculationBreckets[i] == '[')
-                {
-                    openbreckets.Push('[');
-                }
+
                 if (calculationBreckets[i] == ')')  //second and third check, brecket type
                 {
 
-                    if (openbreckets.Peek()== '[')
-                    {
-                        break;
-                    }
-                    else if (openbreckets.Peek()=='(')
+                    if (openbreckets.Peek() != '[')
                     {
                         openbreckets.Pop();
                     }
@@ -60,11 +64,7 @@ namespace Homework8
                 if (calculationBreckets[i] == ']')
                 {
 
-                    if (openbreckets.Peek()=='(')
-                    {
-                        break;
-                    }
-                    else if (openbreckets.Peek()=='[')
+                    if (openbreckets.Peek() != '(')
                     {
                         openbreckets.Pop();
                     }
