@@ -8,12 +8,12 @@ namespace HW11
         {
             var alarm1 = new ReminderItem
             {
-              AlarmDate = new DateTime(2020,04,19,7,0,0),
+              AlarmDate = new DateTimeOffset(2020,04,22,7,0,0, 0, new TimeSpan(3, 0, 0)),
               AlarmMessage = $"Wake up!"
             };
             var alarm2 = new ReminderItem
             {
-                AlarmDate = new DateTime(2020, 04, 17, 15, 30, 0),
+                AlarmDate = new DateTimeOffset(2020, 04, 17, 15, 30, 0, 0, new TimeSpan(3,0,0)),
                 AlarmMessage = $"Wake up!"
             };
             alarm1.WriteProperties();

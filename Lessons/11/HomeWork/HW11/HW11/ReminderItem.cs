@@ -8,7 +8,7 @@ namespace HW11
     {
         public ReminderItem() { }
 
-        public DateTime AlarmDate { get; set; }
+        public DateTimeOffset AlarmDate { get; set; }
 
         public string AlarmMessage { get; set; }
 
@@ -16,7 +16,7 @@ namespace HW11
         {
             get
             {
-                return AlarmDate-DateTimeOffset.Now;
+                return AlarmDate - DateTimeOffset.Now;
             }
         }
 
@@ -24,13 +24,13 @@ namespace HW11
         {
             get
             {
-                return TimeToAlarm >= TimeSpan.Zero;
+                return TimeToAlarm <=   TimeSpan.Zero;
             }
         }
         public void WriteProperties()
         {
             Console.WriteLine(
-                @$"Alarm date: {AlarmDate}
+                @$"Alarm date: {AlarmDate:dd.MM.yyyy HH:mm}
 Alarm message: {AlarmMessage} 
 Time to alarm: {TimeToAlarm} 
 Is out dated: {IsOutdated}");
