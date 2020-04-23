@@ -6,19 +6,17 @@ namespace HW10
     {
         static string CheckName()
         {
-            string checkstring = null;
-
-            do
+            while(true)
             {
-                checkstring = (Console.ReadLine()).ToUpperInvariant();
+                var checkstring = Console.ReadLine();
                 if (string.IsNullOrWhiteSpace(checkstring))
                 {
                     Console.WriteLine("Попробуйте еще раз");
+                    continue;
                 }
-
+                return checkstring.ToUpper().Trim();
             }
-            while (string.IsNullOrWhiteSpace(checkstring));
-            return checkstring.Trim();
+            
         }
         static int CheckAge()
         {
