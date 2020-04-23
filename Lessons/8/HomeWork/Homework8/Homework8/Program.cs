@@ -7,7 +7,7 @@ namespace Homework8
 
     class Program
     {
-        Dictionary<char, char> brecketstype = new Dictionary<char, char>
+        static Dictionary<char, char> brecketstype = new Dictionary<char, char>
         {
             { '(' , ')' },
             { '[' , ']' },
@@ -46,29 +46,34 @@ namespace Homework8
             for (var i = 0; i < calculationBreckets.Length; i++)
             {
 
-                //if (calculationBreckets[i] == brecketstype.ContainsKey)
-                if (calculationBreckets[i] == '(' || calculationBreckets[i] == '[') //add open type to stack
-                    {
+                if (brecketstype.ContainsKey(calculationBreckets[i])) //add open type to stack
+
+                {
                     openbreckets.Push(calculationBreckets[i]);
                 }
+                if (brecketstype.ContainsValue(calculationBreckets[i])) 
 
-                if (calculationBreckets[i] == ')')  //second and third check, brecket type
                 {
-
-                    if (openbreckets.Peek() != '[')
+                    if (openbreckets.Peek().Equals('(')&& calculationBreckets[i].Equals(')')) //second and third check
                     {
                         openbreckets.Pop();
+                        continue;
                     }
-
-                }
-                if (calculationBreckets[i] == ']')
-                {
-
-                    if (openbreckets.Peek() != '(')
+                    if (openbreckets.Peek().Equals('[') && calculationBreckets[i].Equals(']'))
                     {
                         openbreckets.Pop();
+                        continue;
                     }
-
+                    if (openbreckets.Peek().Equals('{') && calculationBreckets[i].Equals('}'))
+                    {
+                        openbreckets.Pop();
+                        continue;
+                    }
+                    if (openbreckets.Peek().Equals('<') && calculationBreckets[i].Equals('>'))
+                    {
+                        openbreckets.Pop();
+                        continue;
+                    }
                 }
             }
 
