@@ -42,43 +42,30 @@ namespace Homework8
                 Console.WriteLine($"The answer is {!(calculationBreckets.Length % 2 != 0)}");
                 return false;
             }
-
-            for (var i = 0; i < calculationBreckets.Length; i++)
+            int count;
+            for (count = 0; count < calculationBreckets.Length; count++)
             {
 
-                if (brecketstype.ContainsKey(calculationBreckets[i])) //add open type to stack
-
+                if (brecketstype.ContainsKey(calculationBreckets[count])) //add open type to stack
                 {
-                    openbreckets.Push(calculationBreckets[i]);
+                    openbreckets.Push(calculationBreckets[count]);
+                    continue;
                 }
-                if (brecketstype.ContainsValue(calculationBreckets[i])) 
-
+                if (brecketstype.ContainsValue(calculationBreckets[count]))
                 {
-                    if (openbreckets.Peek().Equals('(')&& calculationBreckets[i].Equals(')')) //second and third check
+                    if ((brecketstype[openbreckets.Peek()] == calculationBreckets[count]) &&  openbreckets.Count >0)
                     {
-                        openbreckets.Pop();
-                        continue;
-                    }
-                    if (openbreckets.Peek().Equals('[') && calculationBreckets[i].Equals(']'))
-                    {
-                        openbreckets.Pop();
-                        continue;
-                    }
-                    if (openbreckets.Peek().Equals('{') && calculationBreckets[i].Equals('}'))
-                    {
-                        openbreckets.Pop();
-                        continue;
-                    }
-                    if (openbreckets.Peek().Equals('<') && calculationBreckets[i].Equals('>'))
-                    {
-                        openbreckets.Pop();
-                        continue;
+                        openbreckets.Pop();  
+                        if (openbreckets.Count == 0 && (calculationBreckets.Length -count) > 0)
+                        {
+                            break;
+                        }
                     }
                 }
             }
 
-            Console.WriteLine($"The answer is {openbreckets.Count == 0}");
-            return (openbreckets.Count == 0);  //forth check, stack balance
+            Console.WriteLine($"The answer is {openbreckets.Count == 0 && (calculationBreckets.Length==count)}");
+            return (openbreckets.Count == 0 && (calculationBreckets.Length == count));  //forth check, stack balance
         }
 
 
