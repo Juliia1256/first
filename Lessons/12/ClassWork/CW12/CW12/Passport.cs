@@ -6,25 +6,19 @@ namespace CW12
 {
     class Passport : BaseDocument
     {
-        public string Country;
-        public string PersonName;
-        public Passport (string Country, string PersonName, string Number, DateTime IssueDate) :  base(Number, IssueDate)
+        public string Country { get; set; }
+        public string PersonName { get; set; }
+        public Passport (string number, DateTimeOffset issueDate, string country, string personName) 
+            :  base("Passport", number, issueDate)
         {
-
+            Country = country;
+            PersonName = personName;
         }
 
-        public override string Description
+        public override string Description => $"Type of document: {Title} \n Documet's number: {Number} \n Issue date: {IssueDate:dd-MM-yyyy} \n Country: {Country} \n Person name: {PersonName}";
+        public void ChangeIssueDate(DateTimeOffset newIssueDate)
         {
-            get
-            {
-                return $"{Country} , {PersonName} , {Title} , {Number} , {IssueDate} ";
-            }
+            IssueDate = newIssueDate;
         }
-
-
-        //public new void WriteToConsole()
-        //{
-        //    Console.WriteLine(Description);
-        //}
     }
 }

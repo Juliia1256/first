@@ -6,27 +6,22 @@ namespace CW12
 {
     class BaseDocument
     {
-        public string Title;
-        public string Number;
-        public DateTime IssueDate;
+        public string Title {get; set;}
+        public string Number { get; set; }
+        public DateTimeOffset IssueDate { get; set; }
+        public virtual string Description => $"Type of document: {Title} \n Documet's number: {Number} \n Issue date: {IssueDate:dd-MM-yyyy}";
 
-        public BaseDocument(string Title, string Number, DateTime IssueDate) : base(Number, IssueDate)
+        public BaseDocument(string title, string number, DateTimeOffset issueDate)
         {
-
+            Title = title;
+            Number = number;
+            IssueDate = issueDate;
         }
-
-        public virtual string Description
-        {
-            get
-            {
-                return $"{Title} , {Number} , {IssueDate}  ";
-            }
-        }
-
 
         public void WriteToConsole()
         {
             Console.WriteLine(Description);
         }
+
     }
 }
