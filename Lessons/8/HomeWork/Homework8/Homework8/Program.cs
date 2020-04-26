@@ -32,18 +32,14 @@ namespace Homework8
         }
         static bool CalculationBreckets()
         {
-
-
             var calculationBreckets = GetBreckets();
 
             Stack<char> openbreckets = new Stack<char>();
             if (calculationBreckets.Length % 2 != 0) //first check
             {
-                Console.WriteLine($"The answer is {!(calculationBreckets.Length % 2 != 0)}");
                 return false;
             }
-            int count;
-            for (count = 0; count < calculationBreckets.Length; count++)
+            for (int count = 0; count < calculationBreckets.Length; count++)
             {
 
                 if (brecketstype.ContainsKey(calculationBreckets[count])) //add open type to stack
@@ -51,29 +47,28 @@ namespace Homework8
                     openbreckets.Push(calculationBreckets[count]);
                     continue;
                 }
+                if(openbreckets.Count == 0) //second check
+                {
+                    return false;
+                }
                 if (brecketstype.ContainsValue(calculationBreckets[count]))
                 {
-                    if ((brecketstype[openbreckets.Peek()] == calculationBreckets[count]) &&  openbreckets.Count >0)
+                    var item = openbreckets.Pop();
+                    if (brecketstype[item] != calculationBreckets[count]) //third check
                     {
-                        openbreckets.Pop();  
-                        if (openbreckets.Count == 0 && (calculationBreckets.Length -count) > 0)
-                        {
-                            break;
-                        }
+                        return false;
                     }
                 }
             }
-
-            Console.WriteLine($"The answer is {openbreckets.Count == 0 && (calculationBreckets.Length==count)}");
-            return (openbreckets.Count == 0 && (calculationBreckets.Length == count));  //forth check, stack balance
+            return (openbreckets.Count == 0 );  //forth check, stack balance
         }
 
 
 
         static void Main(string[] args)
         {
+            Console.WriteLine($"The answer is {CalculationBreckets()}");
 
-            CalculationBreckets();
         }
 
     }
