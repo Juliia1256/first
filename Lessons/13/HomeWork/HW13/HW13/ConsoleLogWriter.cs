@@ -1,18 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace HW13
 {
     class ConsoleLogWriter: AbstractLogWriter
     {
-        public ConsoleLogWriter() : base()
+        public ConsoleLogWriter() : base() { }
+
+       
+        public override void LogInfo(string message)
         {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tInfo\t{message}\n";
+            Console.WriteLine(errortype);
         }
-        public override string Description => $"{LogTime:yyyy-MM-dd}T{LogTime:HH:mm:ss}\t{Message}\n";
-        public void WriteToConsole()
+        public override void LogWarning(string message)
         {
-            Console.WriteLine(Description);
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tWarning\t{message}\n";
+            Console.WriteLine(errortype);
+        }
+        public override void LogError(string message)
+        {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tError\t{message}\n";
+            Console.WriteLine(errortype);
         }
     }
 }

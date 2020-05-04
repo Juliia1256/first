@@ -10,20 +10,14 @@ namespace HW13
         {
             var conslog = new ConsoleLogWriter();
             var textlog = new FileLogWriter();
-            var textlog2 = new FileLogWriter();
-            var multilog = new MultipleLogWriter();
-            var multilog2 = new MultipleLogWriter();
-            conslog.LogError();
-            textlog.LogInfo();
-            textlog2.LogWarning();
-            multilog.LogWarning();
-            multilog2.LogError();
+            var conslog1 = new ConsoleLogWriter();
+            var textlog1 = new FileLogWriter();
+            conslog.LogInfo("Some information about the program");
+            textlog.LogError("Some information about the error in the program");
+            conslog1.LogInfo("Warning about possible problems in the program");
+            textlog1.LogError("Some information about the error in the program");
+            var multi = new MultipleLogWriter(new AbstractLogWriter[] {conslog, textlog, conslog1, textlog1});
 
-            conslog.WriteToConsole();
-            textlog.TextLog();
-            textlog2.TextLog();
-            multilog.MultipleLog();
-            multilog2.MultipleLog();
         }
         
     }

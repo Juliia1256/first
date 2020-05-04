@@ -1,31 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace HW13
 {
     abstract class AbstractLogWriter : ILogWriter
     {
         public DateTimeOffset LogTime { get; set; }
-        public string Message{ get; set; }
         public AbstractLogWriter()
         {
             LogTime = DateTimeOffset.UtcNow;
         }
-        public virtual void LogInfo()
+        public virtual void LogInfo(string message)
         {
-              this.Message = "Info\tSome informations";
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tInfo\t{message}\n";
         }
-        public virtual void LogWarning()
+        public virtual void LogWarning(string message)
         {
-            this.Message = "Warning\tSome informations about warning";
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tWarning\t{message}\n";
         }
-        public virtual void LogError()
+        public virtual void LogError(string message)
         {
-            this.Message = "Error\tSome informations about error";
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tError\t{message}\n";
         }
-        public virtual string Description => $"{LogTime:yyyy-MM-dd}T{LogTime:HH:mm:ss}\t{Message}\n";
-
     }
 
 }

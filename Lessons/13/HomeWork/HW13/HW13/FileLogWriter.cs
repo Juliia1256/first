@@ -9,10 +9,20 @@ namespace HW13
     {
         public FileLogWriter() : base() { }
 
-        public override string Description => $"{LogTime:yyyy-MM-dd}T{LogTime:HH:mm:ss}\t{Message}\n";
-        public void  TextLog()
+        public override void LogInfo(string message)
         {
-            File.AppendAllText("logfile.txt", Description);
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tInfo\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
+        }
+        public override void LogWarning(string message)
+        {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tWarning\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
+        }
+        public override void LogError(string message)
+        {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tError\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
         }
     }
 

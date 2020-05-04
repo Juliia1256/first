@@ -7,14 +7,26 @@ namespace HW13
 {
     class MultipleLogWriter : AbstractLogWriter
     {
-        public MultipleLogWriter() : base() { }
+        public MultipleLogWriter(AbstractLogWriter[]args) : base() { }
 
-        public override string Description => $"{LogTime:yyyy-MM-dd}T{LogTime:HH:mm:ss}\t{Message}\n";
-
-        public void MultipleLog()
+        public override void LogInfo(string message)
         {
-            File.AppendAllText("logfile.txt", Description);
-            Console.WriteLine(Description);
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tInfo\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
+            Console.WriteLine(errortype);
+        }
+        public override void LogWarning(string message)
+        {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tWarning\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
+            Console.WriteLine(errortype);
+
+        }
+        public override void LogError(string message)
+        {
+            var errortype = $"{LogTime:yyyy:MM:ddThh:mm:ss}+00:00\tError\t{message}\n";
+            File.AppendAllText("Log.txt", errortype);
+            Console.WriteLine(errortype);
         }
     }
 }
