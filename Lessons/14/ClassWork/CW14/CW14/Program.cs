@@ -6,15 +6,12 @@ namespace CW14
     {
         static void Main(string[] args)
         {
+            ErrorList.Category = "Errors";
+            ErrorList.Add("new error");
+            ErrorList.Add("some error");
+            ErrorList.WrightToConsole();
 
-            using (var examp = new ErrorList(category: "error"))
-            {
-                examp.Add("new error");
-                foreach (var item in examp.Errors)
-                {
-                    Console.WriteLine(item);
-                }
-             }
+
 
         }
     }

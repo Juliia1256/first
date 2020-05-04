@@ -5,36 +5,47 @@ using System.Text;
 
 namespace CW14
 {
-    class ErrorList : IDisposable, IEnumerable<string>
+    static class ErrorList 
     {
-        public string Category { get; }
-        public List<string> Errors { get; private set; }
+        public static string Category { get; set; }
+        private static List<string> _errors;
+        public static string OutputPrefixFormat { get; set; }
 
-        public ErrorList(string category)
+        private static string _outputPrefix
         {
-            Category = category;
+            get
+            {
+                return DateTime.Now.ToString(OutputPrefixFormat);
+            }
         }
 
-        public void Add(string errorMessage)
+        static ErrorList()
         {
-            Errors = new List<string> { errorMessage };
-        }
-        public virtual void Dispose()
-        {
-            Errors.Clear();
-
-            Errors = new List<string>();
+            Category = "error";
+            _errors = new List<string>();
+            OutputPrefixFormat = "MMMM d, yyyy (hh:mm tt)";
         }
 
-        public IEnumerator<string> GetEnumerator()
+        public static void Add(string errorMessage)
         {
-            var iitem = Errors.GetEnumerator();
+            _errors.Add(errorMessage);
+        }
+
+
+        public static void WrightToConsole()
+        {
+            foreach(var item in _errors)
+            {
+                Console.WriteLine(string.Format($"{_outputPrefix} {Category} {item}"));
+            }
+            
+        }
+
+
+        public static IEnumerator<string> GetEnumerator()
+        {
+            var iitem = _errors.GetEnumerator();
             return iitem;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
         }
     }
 }
