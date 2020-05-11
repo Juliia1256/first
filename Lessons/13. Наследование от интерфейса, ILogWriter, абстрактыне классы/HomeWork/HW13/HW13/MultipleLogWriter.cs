@@ -33,5 +33,6 @@ namespace HW13
                 log.LogError(message);
             }
         }
+        public override void WriteLog(string Errortype) { }
     }
 }

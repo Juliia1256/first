@@ -23,7 +23,7 @@ namespace HW13
             WriteLog(Errortype);
         }
 
-        public virtual void WriteLog(string Errortype) { }
+        public abstract void WriteLog(string Errortype);
     }
 
 }
