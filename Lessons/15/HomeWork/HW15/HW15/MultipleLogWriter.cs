@@ -4,23 +4,32 @@ using System.IO;
 
 namespace HW15
 {
-    class MultipleLogWriter : AbstractLogWriter
+    class MultipleLogWriter : ILogWriter
     {
-        public MultipleLogWriter(AbstractLogWriter[] args) { }
-        public MultipleLogWriter() { }
-        public void MultiWrite(AbstractLogWriter[] loger)
+        private ILogWriter[] _logscollection;
+        public MultipleLogWriter(ILogWriter[] arg)
         {
-            foreach (var item in loger)
+            _logscollection = arg;
+        }
+        public void LogInfo(string message)
+        {
+            foreach (var log in _logscollection)
             {
-                if (item is ConsoleLogWriter)
-                {
-                    Console.WriteLine(Errortype);
-                }
-                if (item is FileLogWriter)
-                {
-                    File.AppendAllText("Log.txt", Errortype);
-                }
-
+                log.LogInfo(message);
+            }
+        }
+        public  void LogWarning(string message)
+        {
+            foreach (var log in _logscollection)
+            {
+                log.LogWarning(message);
+            }
+        }
+        public  void LogError(string message)
+        {
+            foreach (var log in _logscollection)
+            {
+                log.LogError(message);
             }
         }
     }

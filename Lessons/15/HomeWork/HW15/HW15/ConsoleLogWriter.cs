@@ -7,10 +7,11 @@ namespace HW15
     class ConsoleLogWriter : AbstractLogWriter
 
     {
-        public ConsoleLogWriter() { } 
-        public void WriteToConsole()
+        public ConsoleLogWriter() { }
+
+        public override void WriteLog(string errortype)
         {
-            Console.WriteLine(Errortype);
+            Console.WriteLine(errortype);
         }
 
     }
