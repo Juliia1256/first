@@ -9,9 +9,9 @@ namespace HW14
         private static ConsoleLogWriter _instance;
         public static ConsoleLogWriter Instance => _instance ??= new ConsoleLogWriter();
         private ConsoleLogWriter() { }
-        public override void WriteLog(string Errortype)
+        public override void WriteLog(string errortype)
         {
-            Console.WriteLine(Errortype);
+            Console.WriteLine(errortype);
         }
     }
 }

@@ -6,6 +6,7 @@ namespace HW14
     {
         static void Main(string[] args)
         {
+            FileLogWriter.ChangeOfFileName("FileLog.txt");
             var conslog = ConsoleLogWriter.Instance;
             var textlog = FileLogWriter.Instance;
             var multi = new ILogWriter[] { conslog, textlog }; //save instances in a variable 

@@ -7,16 +7,18 @@ namespace HW14
 {
     class FileLogWriter : AbstractLogWriter
     {
+
         private static FileLogWriter instance;
         public static FileLogWriter Instance => instance ??= new FileLogWriter();
-        private string _nameOfFile;
-        private FileLogWriter()
+        private static string _nameOfFile;
+        private FileLogWriter() { }
+        public static void ChangeOfFileName(string nameOfFile)
         {
-            _nameOfFile = "TextLog.txt";
+            _nameOfFile = nameOfFile;
         }
-        public override void WriteLog(string Errortype)
+        public override void WriteLog(string errortype)
         {
-            File.AppendAllText(_nameOfFile, Errortype);
+            File.AppendAllText(_nameOfFile, errortype);
         }
     }
 }
