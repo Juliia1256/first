@@ -15,24 +15,27 @@ namespace HW17
             _fileName = fileName;
             Random rand = new Random();
             var array = new byte[datasize];
-            rand.NextBytes(array);
-            foreach (var item in array)
+            var count = 1.0f;
+            for (var i = 0; i < datasize; i++)
             {
-                File.AppendAllText(fileName, item.ToString());
+                array[i] = (byte)rand.Next(100);
+                File.AppendAllText(fileName, i.ToString());
+                if (((i + count) / datasize) % percentageToFireEvent == 0)
+                {
+                    var text = $"Process of writing to the {fileName} completed on {((i + count) / datasize) * 100}%";
+                    StartWritingPerformed(this, text);
+                }
+                else if ((i + count) == datasize)
+                {
+                    var text = $"Process of writing to the {fileName} completed on 100%";
+                    StartWritingPerformed(this, text);
+                }
             }
-            StartWritingPerformed(this, percentageToFireEvent);
             WritingProgressComplited(this, array);
             return array;
         }
-        protected virtual void StartWritingPerformed(object sender, float percentageToFireEvent)
+        protected virtual void StartWritingPerformed(object sender, string text)
         {
-            var counToProcess = 1.0f / percentageToFireEvent;
-            var text = new List<string>();
-            for (var i = 0; i < counToProcess; i++)
-            {
-                var result = i + 1;
-                text.Add($"Process completed on {result * 10}%");
-            }
             var args = new RandomDataGeneratinfields
             {
                 Text = text

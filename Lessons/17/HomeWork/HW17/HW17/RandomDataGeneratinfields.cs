@@ -6,6 +6,6 @@ namespace HW17
 {
     public class RandomDataGeneratinfields : EventArgs
     {
-        public List<string> Text  { get; set; }
+        public string Text  { get; set; }
     }
 }
