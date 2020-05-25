@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 
 namespace HW17
@@ -9,30 +7,19 @@ namespace HW17
     {
         public event EventHandler<RandomDataGeneratinfields> WritingPerformed;
         public event EventHandler<RandomDataGenerated> WritingComplited;
-        private string _fileName;
-        public byte[] WriteBytes(string fileName, int datasize, float percentageToFireEvent)
+        public byte[] WriteBytes(string fileName, byte[] data, float percentageToFireEvent)
         {
-            _fileName = fileName;
-            Random rand = new Random();
-            var array = new byte[datasize];
-            var count = 1.0f;
-            for (var i = 0; i < datasize; i++)
+            for (var i = 0; i < data.Length; i++)
             {
-                array[i] = (byte)rand.Next(100);
-                File.AppendAllText(fileName, i.ToString());
-                if (((i + count) / datasize) % percentageToFireEvent == 0)
+                File.AppendAllText(fileName, data[i].ToString());
+                if (((i + 1.0f) / data.Length) % percentageToFireEvent == 0.0f || ((i + 1.0f) == data.Length))
                 {
-                    var text = $"Process of writing to the {fileName} completed on {((i + count) / datasize) * 100}%";
-                    StartWritingPerformed(this, text);
-                }
-                else if ((i + count) == datasize)
-                {
-                    var text = $"Process of writing to the {fileName} completed on 100%";
+                    var text = $"Process of writing to the {fileName} completed on {((i + 1.0f) / data.Length) * 100}%";
                     StartWritingPerformed(this, text);
                 }
             }
-            WritingProgressComplited(this, array);
-            return array;
+            WritingProgressComplited(this, data);
+            return data;
         }
         protected virtual void StartWritingPerformed(object sender, string text)
         {
