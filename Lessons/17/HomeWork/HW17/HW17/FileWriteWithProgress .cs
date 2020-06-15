@@ -11,10 +11,12 @@ namespace HW17
         {
             for (var i = 0; i < data.Length; i++)
             {
+                var count = i + 1.0f;
+                var percent = percentageToFireEvent * 100;
                 File.AppendAllText(fileName, data[i].ToString());
-                if (((i + 1.0f) / data.Length) % percentageToFireEvent == 0.0f || ((i + 1.0f) == data.Length))
+                if (count % (int)percent == 0)
                 {
-                    var text = $"Process of writing to the {fileName} completed on {((i + 1.0f) / data.Length) * 100}%";
+                    var text = $"Process of writing to the {fileName} completed on {count}%";
                     StartWritingPerformed(this, text);
                 }
             }
