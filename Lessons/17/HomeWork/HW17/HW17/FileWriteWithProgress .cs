@@ -9,10 +9,10 @@ namespace HW17
         public event EventHandler<RandomDataGenerated> WritingComplited;
         public byte[] WriteBytes(string fileName, byte[] data, float percentageToFireEvent)
         {
+            var percent = percentageToFireEvent * 100;
             for (var i = 0; i < data.Length; i++)
             {
                 var count = i + 1.0f;
-                var percent = percentageToFireEvent * 100;
                 File.AppendAllText(fileName, data[i].ToString());
                 if (count % (int)percent == 0)
                 {
