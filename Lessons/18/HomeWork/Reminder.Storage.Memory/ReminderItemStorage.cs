@@ -31,7 +31,6 @@ namespace Reminder.Storage.Memory
 					$"Reminder item with title {item.Title} and id {item.Id:N} already exists in memory storage",
 					nameof(item));
 			}
-			_items.Add(item.Id, item);
 		}
 
 		public ReminderItem Find(Guid id)
