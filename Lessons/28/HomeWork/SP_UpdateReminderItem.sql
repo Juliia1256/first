@@ -19,7 +19,6 @@ PRINT 'Reminder is not found';
 END
 If @ReminderItemId is not null
 BEGIN
-select @ReminderItemId = [u_sheykina_schema].[fn_FindById](@ReminderItemId);
 UPDATE ReminderItem
 SET Title = @Title,
 [Message] = @Message,

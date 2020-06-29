@@ -9,7 +9,7 @@ AS
 BEGIN
 set NOCOUNT on;
 select Id from ReminderItem
-Where DateTimeUtc = @DateTimeUtc;
+Where DateTimeUtc >= @DateTimeUtc;
 RETURN 
 END
 GO

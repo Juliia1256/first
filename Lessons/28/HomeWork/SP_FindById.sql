@@ -9,13 +9,15 @@ as
 BEGIN
 set nocount on;
 If @ReminderItemId is not null
-select @ReminderItemId = [u_sheykina_schema].[fn_FindById](@ReminderItemId);
+SELECT Id
+FROM ReminderItem
+WHERE Id = @ReminderItemId;
 RETURN
-Print 'Reminder was found' + convert(varchar(36),@ReminderItemId);
+END
 if @ReminderItemId is NULL
 BEGIN
 PRINT 'Reminder is not found';
-END
+RETURN
 END
 GO
 

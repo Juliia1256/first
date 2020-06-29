@@ -10,7 +10,7 @@ AS
 BEGIN
 set NOCOUNT on;
 select Id from ReminderItem
-Where DateTimeUtc = @DateTimeUtc and ItemStatusId = @ItemStatusId;
+Where DateTimeUtc >= @DateTimeUtc and ItemStatusId = @ItemStatusId;
 RETURN 
 END
 GO
