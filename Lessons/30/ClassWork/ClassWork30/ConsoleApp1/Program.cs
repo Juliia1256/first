@@ -48,15 +48,14 @@ namespace ConsoleApp1
             );
             Console.WriteLine($"Created order id {orderId}");
             var orderCount = orderRepository.GetCount();
-            Console.WriteLine($"Get result:  {orderCount}");
-            var orderCount1 = orderRepository.GetById(20);
-            Console.WriteLine($"Get result: {orderCount1}");
-            var orderCount2 = orderRepository.GetAll();
-            foreach (var item in orderCount2)
+            Console.WriteLine($"Get result Order Count:  {orderCount}");
+            var orderbyId = orderRepository.GetById(20);
+            Console.WriteLine($"Get result: {orderbyId }");
+            var orderAll = orderRepository.GetAll();
+            foreach (var item in orderAll)
             {
-                Console.WriteLine(item);
+                Console.WriteLine($"Get result:{item}");
             }
-            Console.WriteLine($"Count of rows in table orders: {orderCount2}");
             Console.ReadKey();
 
 
