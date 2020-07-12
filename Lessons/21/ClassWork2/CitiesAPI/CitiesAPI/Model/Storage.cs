@@ -33,13 +33,12 @@ namespace CitiesAPI.Model
 
             Items.Remove(item);
         }
-        public City Update(Guid id, UpdateCityViewModel model)
+        public City Update(City city, UpdateCityViewModel model)
         {
-            var item = Items.FirstOrDefault(_ => _.Id == id);
-            item.Population = model.Population;
-            item.Description = model.Description.Capitalize().Trim();
+            city.Population = model.Population;
+            city.Description = model.Description.Capitalize().Trim();
 
-            return item;
+            return city;
         }
         public IEnumerable<City> FindAll()
         {

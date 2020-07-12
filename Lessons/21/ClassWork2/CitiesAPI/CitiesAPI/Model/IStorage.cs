@@ -10,7 +10,7 @@ namespace CitiesAPI.Model
     {
         void Create(City city);
         void Delete(Guid id);
-        City Update(Guid id, UpdateCityViewModel model);
+        City Update(City city, UpdateCityViewModel model);
         IEnumerable<City> FindAll();
         City FindById(Guid id);
         City FindByTitle(string title);

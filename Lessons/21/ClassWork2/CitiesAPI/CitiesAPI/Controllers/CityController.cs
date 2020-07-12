@@ -45,19 +45,31 @@ namespace CitiesAPI.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
+            var item = _storage.FindById(id);
+            if (item == null)
+            {
+                _logger.LogWarning($"Can't delete, because city with id {id} not found");
+                return NotFound();
+            }
             _storage.Delete(id);
-            return Ok();
+            return NoContent();
         }
 
         [HttpPut("{id}")]
 
         public IActionResult Update(Guid id, [FromBody] UpdateCityViewModel model)
         {
+            var item = _storage.FindById(id);
+            if (item == null)
+            {
+                _logger.LogWarning($"Can't update, because city with id {id} not found");
+                return NotFound();
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _storage.Update(id, model);
+            _storage.Update(item, model);
             return Ok();
         }
 
