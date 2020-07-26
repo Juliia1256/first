@@ -33,20 +33,12 @@ namespace CitiesAPI.Model
 
             Items.Remove(item);
         }
-        //public City Update(City city, UpdateCityViewModel model)
-        //{
-        //    city.Population = model.Population;
-        //    city.Description = model.Description.Capitalize().Trim();
 
-        //    return city;
-        //}
-        public void Update(int population, Guid id)
+        public void Update(int population, string description, Guid id)
         {
             FindById(id)
                 .Population = population;
-        }
-        public void Update(string description, Guid id)
-        {
+
             FindById(id)
                 .Description = description
                 .Capitalize()
@@ -58,7 +50,7 @@ namespace CitiesAPI.Model
                 .OrderByDescending(city => city.Population)
                 .ThenBy(city => city.Title);
 
-                //TakeWhile(city => city.Title.StartsWith(firstLetter))
+            //TakeWhile(city => city.Title.StartsWith(firstLetter))
         }
 
         public City FindById(Guid id)

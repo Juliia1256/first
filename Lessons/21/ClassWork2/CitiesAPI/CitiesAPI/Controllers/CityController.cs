@@ -63,8 +63,7 @@ namespace CitiesAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            _storage.Update(city.Population, id);
-            _storage.Update(city.Description, id);
+            _storage.Update(city.Population, city.Description, id);
             return Ok(_storage.FindById(id));
         }
 
