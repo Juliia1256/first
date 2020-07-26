@@ -57,20 +57,15 @@ namespace CitiesAPI.Controllers
 
         [HttpPut("{id}")]
 
-        public IActionResult Update(Guid id, [FromBody] UpdateCityViewModel model)
+        public IActionResult Update(Guid id, [FromBody] UpdateCityViewModel city)
         {
-            var item = _storage.FindById(id);
-            if (item == null)
-            {
-                _logger.LogWarning($"Can't update, because city with id {id} not found");
-                return NotFound();
-            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _storage.Update(item, model);
-            return Ok();
+            _storage.Update(city.Population, id);
+            _storage.Update(city.Description, id);
+            return Ok(_storage.FindById(id));
         }
 
         [HttpPost]

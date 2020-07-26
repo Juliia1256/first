@@ -8,6 +8,10 @@ namespace CitiesAPI.ViewModels
 {
     public class UpdateCityViewModel
     {
+        public UpdateCityViewModel()
+        {
+        }
+
         [Required]
         [MaxLength(4095)]
         public string Description { get; set; }

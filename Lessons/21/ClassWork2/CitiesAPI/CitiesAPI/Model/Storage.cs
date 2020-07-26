@@ -33,12 +33,24 @@ namespace CitiesAPI.Model
 
             Items.Remove(item);
         }
-        public City Update(City city, UpdateCityViewModel model)
-        {
-            city.Population = model.Population;
-            city.Description = model.Description.Capitalize().Trim();
+        //public City Update(City city, UpdateCityViewModel model)
+        //{
+        //    city.Population = model.Population;
+        //    city.Description = model.Description.Capitalize().Trim();
 
-            return city;
+        //    return city;
+        //}
+        public void Update(int population, Guid id)
+        {
+            FindById(id)
+                .Population = population;
+        }
+        public void Update(string description, Guid id)
+        {
+            FindById(id)
+                .Description = description
+                .Capitalize()
+                .Trim();
         }
         public IEnumerable<City> FindAll()
         {
@@ -51,6 +63,7 @@ namespace CitiesAPI.Model
 
         public City FindById(Guid id)
         {
+
             return Items
                 .FirstOrDefault(_ => _.Id == id);
         }
