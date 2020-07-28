@@ -16,10 +16,10 @@ namespace CitiesAPI.Model
 
         public List<City> Items { get; } = new List<City>
         {
-            new City("Moscow", "The capital of Russia", 16_000_000),
-            new City("Saint Petersburg", "The culture center of Russia", 6_000_000),
-            new City("Saratov","Throughout history had one name",838000),
-            new City("Ryazan'", "Contains pies with eyes", 500000)
+            new City(Guid.NewGuid(),"Moscow", "The capital of Russia", 16_000_000),
+            new City(Guid.NewGuid(),"Saint Petersburg", "The culture center of Russia", 6_000_000),
+            new City(Guid.NewGuid(),"Saratov","Throughout history had one name",838000),
+            new City(Guid.NewGuid(),"Ryazan'", "Contains pies with eyes", 500000)
         };
 
         public void Create(City city)
@@ -34,15 +34,15 @@ namespace CitiesAPI.Model
             Items.Remove(item);
         }
 
-        public void Update(int population, string description, Guid id)
+        public void Update(City city)
         {
-            FindById(id)
-                .Population = population;
+           var item= Items.FirstOrDefault(item => item.Id == city.Id);
 
-            FindById(id)
-                .Description = description
-                .Capitalize()
-                .Trim();
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            item = city;
         }
         public IEnumerable<City> FindAll()
         {

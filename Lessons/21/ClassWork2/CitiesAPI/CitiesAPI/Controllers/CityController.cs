@@ -57,14 +57,33 @@ namespace CitiesAPI.Controllers
 
         [HttpPut("{id}")]
 
-        public IActionResult Update(Guid id, [FromBody] UpdateCityViewModel city)
+        public IActionResult Update(Guid id, [FromBody] UpdateCityViewModel model)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            _storage.Update(city.Population, city.Description, id);
-            return Ok(_storage.FindById(id));
+            try
+            {
+                var target = _storage.FindById(id);
+                var item = new City(
+                    target.Id,
+                    target.Title,
+                    model.Description.Capitalize().Trim(),
+                    model.Population
+                    );
+                _storage.Update(item);
+
+                return Ok(new CityDetailViewModel(item));
+            }
+            catch (ArgumentNullException)
+            {
+                return BadRequest();
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
         }
 
         [HttpPost]
@@ -75,6 +94,7 @@ namespace CitiesAPI.Controllers
                 return BadRequest(ModelState);
             }
             var city = new City(
+                Guid.NewGuid(),
                 model.Title.Trim(),      //санитизация
                 model.Description.Trim(),
                 model.Population);

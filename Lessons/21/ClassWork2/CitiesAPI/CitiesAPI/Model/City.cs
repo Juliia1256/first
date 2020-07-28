@@ -8,9 +8,9 @@ namespace CitiesAPI.Model
     public class City
     {
 
-        public City(string title, string description, int population)
+        public City(Guid id, string title, string description, int population)
         {
-            Id = Guid.NewGuid();
+            Id = id;
             Title = title.Capitalize();
             Description = description;
             Population = population;
