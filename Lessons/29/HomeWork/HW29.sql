@@ -1,17 +1,37 @@
-  --Написать запрос, в котором вывести все года, в которых были заказы и рядом id и имена клиентов с самым большим заказом по данному году.
+with 
+CustomerTotalOrdersByYearWithDiscount as (
+    SELECT
+        o.CustomerId as customerId,
+        YEAR(o.OrderDate) as OrderYear,
+        (1-isnull(o.Discount, 0))*sum(ol.Count * p.Price) as Total
+    from [order] as o
+    join [orderLine] as ol on o.Id = ol.OrderId
+    JOIN [product] as p on p.Id = ol.ProductId
+    group by o.CustomerId, year(o.OrderDate), o.Discount
+),
+CustomerTotalSumByYear as (
+    SELECT
+    CustomerTotalOrdersByYearWithDiscount.customerId as customerId,
+    CustomerTotalOrdersByYearWithDiscount.OrderYear as  OrderYear,
+    SUM(CustomerTotalOrdersByYearWithDiscount.Total) as Total
+    from CustomerTotalOrdersByYearWithDiscount 
+    join [Customer] as c on c.Id = CustomerTotalOrdersByYearWithDiscount.customerId
+    group by CustomerTotalOrdersByYearWithDiscount.customerId, CustomerTotalOrdersByYearWithDiscount.OrderYear 
+),
+CustomerTotalMaxByYear as (
+    select 
+    CustomerTotalSumByYear.OrderYear as OrderYear,
+    Max(CustomerTotalSumByYear.Total) as Total
+    FROM CustomerTotalSumByYear
+    group by CustomerTotalSumByYear.OrderYear 
 
-  select max(SUMM_With_discount) as Max_Order_in_Year, year
- from(
-
-                select ord.Id as Order_Id,
-                       c.Id as id, 
-                       c.Name as nam, 
-                       (1- isnull(ord.Discount, 0)) * sum(P.Price*ol.[Count]) as SUMM_With_discount, 
-                       YEAR(ord.OrderDate) as year
-                from  OrderLine as ol
-                JOIN [u_sheykina_schema].[Order] as ord  on ord.Id = ol.OrderId
-                join Product as p on p.Id = ol.ProductId
-                JOIN Customer as c on c.Id = ord.CustomerId
-                group by ord.Id, YEAR(OrderDate), c.Id, c.Name, 1- isnull(ord.Discount, 0)
-    ) t
- group by t.[year]
+)
+select 
+    Customer.Id as CustomerId,
+    Customer.Name as CustomerName,
+    CustomerTotalMaxByYear.Total as CustomerTotal,
+    CustomerTotalMaxByYear.OrderYear as OrderYear
+    from  CustomerTotalMaxByYear
+    join CustomerTotalSumByYear on CustomerTotalMaxByYear.Total = CustomerTotalSumByYear.Total
+    join Customer on customer.Id = CustomerTotalSumByYear.customerId
+    ORDER by OrderYear DESC
